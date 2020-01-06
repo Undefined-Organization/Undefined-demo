@@ -1,30 +1,25 @@
-import React, { Component } from 'react';
-import { Switch, HashRouter, Route, Redirect } from 'react-router-dom'
+import React ,{Component,Fragment} from 'react'
+import {HashRouter,NavLink,Route,Redirect,Switch}  from 'react-router-dom'
+import login from '../pages/Login/Login'
+import Admin from '../pages/Admin'
 
-import Admin from '../pages/Admin/Admin'
-import Home from '../pages/Home/Home'
-
-class Router extends Component {
-  render() {
-    return (
-      <HashRouter>
-        <Switch>
-          <Redirect exact from='/' to='/admin'></Redirect>
-          <Route path='/login' component></Route>
-          <Route path='/admin' render={()=>{
-            return (
-              <Admin>
+class AppRouter extends Component{
+    render(){
+        return(
+            <HashRouter>
+            <Redirect exact from ='/' to='/login'></Redirect>
                 <Switch>
-                  <Redirect exact from='/admin' to='/admin/home'></Redirect>
-                  <Route path='/admin/home' component={ Home }></Route>
-                </Switch> 
-              </Admin>  
-            )
-          }}></Route>
-        </Switch> 
-      </HashRouter>
-    );
-  }
+                    <Route path='/login' component={login}></Route>
+                    <Route path='/admin' render={()=>{
+                        return(
+                            <Admin>
+                                22
+                            </Admin>
+                        )
+                    }} ></Route>
+                </Switch>
+            </HashRouter>
+        )
+    }
 }
-
-export default Router;
+export default AppRouter
