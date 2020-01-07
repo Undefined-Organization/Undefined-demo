@@ -5,6 +5,7 @@ import Admin from '../pages/Admin/Admin'
 import Home from '../pages/Home/Home'
 import In from '../pages/In/In'
 import Checkin from '../pages/Checkin/Checkin';
+import Login from '../pages/Login/Login'
 
 class Router extends Component {
   render() {
@@ -12,7 +13,7 @@ class Router extends Component {
       <HashRouter>
         <Switch>
           <Redirect exact from='/' to='/admin'></Redirect>
-          <Route path='/login' component></Route>
+          <Route path='/login' component={Login}></Route>
           <Route path='/admin' render={()=>{
             return (
               <Admin>
