@@ -72,8 +72,8 @@ router.get('/del', (req, res) => {
  * @apiSuccess {String} info  返回信息.
  */
 router.get('/update', (req, res) => {
-  let {_id, name, idCard, sex, price, roomNum, tel} = req.query
-  checkin.update(_id, name, idCard, sex, price, roomNum, tel)
+  let {_id, sex, price, roomNum, tel} = req.query
+  checkin.update(_id, sex, price, roomNum, tel)
   .then((data)=>{
     res.send({err: 0, msg: '修改成功', info: data})
   })
@@ -99,7 +99,7 @@ router.get('/get', (req, res) => {
   let pageSize = Number(req.query.pageSize)||5
   checkin.get(page,pageSize)
   .then((data)=>{
-    res.send({err: 1, msg: '查询成功', info: {list: data}})
+    res.send({err: 0, msg: '查询成功', info: {list: data}})
   })
   .catch((err)=>{
     res.send({err: -1, msg: '查询失败', info: err})
@@ -121,7 +121,7 @@ router.get('/out', (req, res) => {
   let { _id } = req.query
   checkin.out(_id)
   .then((data)=>{
-    res.send({err: 1, msg: '退房成功', info: data})
+    res.send({err: 0, msg: '退房成功', info: data})
   })
   .catch((err)=>{
     res.send({err: -1, msg: '退房失败', info: err})

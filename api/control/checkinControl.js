@@ -7,8 +7,8 @@ async function del(_id){
   let  res = await model.deleteOne({_id:_id})
   return res
 }
-async function update(_id, name, idCard, sex, price, roomNum, tel){
-  let  res = await model.updateOne({_id:_id},{name, idCard, sex, price, roomNum, tel})
+async function update(_id, sex, price, roomNum, tel){
+  let  res = await model.updateOne({_id:_id},{ sex, price, roomNum, tel})
   return res
 }
 async function get(page,pageSize){
