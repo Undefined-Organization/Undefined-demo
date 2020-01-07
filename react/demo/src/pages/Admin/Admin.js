@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import SideNav from '../../components/SideNavs/SideNavs'
-// import {withRouter} from 'react-router-dom'
+import {withRouter} from 'react-router-dom'
 import { Layout } from 'antd';
 import Style from './admin.module.less'
 const { Header, Sider, Content, Footer } = Layout;
@@ -35,4 +35,4 @@ class Admin extends Component {
   }
 }
 
-export default Admin
+export default withRouter(Admin)
