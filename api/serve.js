@@ -1,5 +1,9 @@
 const express = require('express')
 const app = express()
+const cors = require('cors')
+
+//cors
+app.use(cors())
 
 // mongo
 const db = require('./db/connect')

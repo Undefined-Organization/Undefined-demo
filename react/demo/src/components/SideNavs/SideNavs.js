@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Menu, Icon } from 'antd';
 import menu from './menuList'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 
 const { SubMenu } = Menu;
 
@@ -17,11 +17,11 @@ class SideNavs extends Component {
   }
   renderNavs (list) {
     if(!list.length) return '暂无数据'
-    let res = list.map((item,index) => {
+    let res = list.map((item) => {
       if (item.children) {
         return (
           <SubMenu
-          key={'sub'+index}
+          key={item.rootid}
           title={
             <span>
               <Icon type={item.icon} />
@@ -34,10 +34,10 @@ class SideNavs extends Component {
         )
       } else {
         return (
-          <Menu.Item key={index}>
+          <Menu.Item key={item.rootid}>
             <Link to={item.path}>
             <span>
-              <Icon type={item.icon} />
+              <Icon type={item.icon||'null'} />
               <span>{item.name}</span>
             </span>
             </Link>
@@ -49,7 +49,6 @@ class SideNavs extends Component {
   }
   render() {
     let {menuList} = this.state
-    console.log(menuList)
     return (
       <Menu
         onClick={this.handleClick}
@@ -64,4 +63,4 @@ class SideNavs extends Component {
   }
 }
 
-export default SideNavs;
+export default withRouter(SideNavs);
