@@ -1,46 +1,30 @@
-import React, { Component } from 'react';
-import { Input, Radio, Button,message } from 'antd';
-import style from './checkin.module.less'
-import { addCheckinList } from '../../api/checkin'
-import { withRouter } from 'react-router-dom'
+import React, { Component,Fragment} from 'react';
+import { Input, Radio, Button, message } from 'antd';
+import {updateCheckinList} from '../../../api/checkin'
 
-class Checkin extends Component {
-  constructor(){
+class Update extends Component {
+  constructor(props){
     super()
-    this.state = {
-      name: '',
-      idCard: '',
-      sex: '',
-      price: '',
-      roomNum: '',
-      tel: ''
-    }
+    console.log(this)
+    this.state = {...props.updateInfo}
+  }
+  componentWillReceiveProps(props){
+    this.setState({...props.updateInfo})
   }
   submit(){
-    let {name, idCard, sex, price, roomNum, tel} = this.state
-    addCheckinList(name, idCard, sex, price, roomNum, tel)
-      .then(()=>{
-        message.success('入住成功')
-        this.props.history.push('/admin/in')
-      })
+    updateCheckinList(this.state)
+    .then((data)=>{
+      message.success('修改成功')
+      this.props.refreshList()
+    })
   }
   render() {
     let {name, idCard, sex, price, roomNum, tel} = this.state
     return (
-      <div>
-        <div className={style.iptList}>
-          <Input
-          addonBefore='姓名'
-          value={name}
-          onChange={(e)=>{
-            this.setState({name:e.target.value})
-          }}></Input>
-          <Input
-          addonBefore='身份证号'
-          value={idCard}
-          onChange={(e)=>{
-            this.setState({idCard:e.target.value})
-          }}></Input>
+      <Fragment>
+        <div>
+          <p>姓名：{name}</p>
+          <p>身份证号：{idCard}</p>
           <div>
             <Radio.Group defaultValue="a" buttonStyle="solid"
             onChange={(e)=>{
@@ -70,9 +54,9 @@ class Checkin extends Component {
           }}></Input>
           <Button type='primary' onClick={this.submit.bind(this)}>提交</Button>
         </div>
-      </div>
+      </Fragment>
     );
   }
 }
 
-export default withRouter(Checkin);
+export default Update;

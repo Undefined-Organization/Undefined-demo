@@ -1,3 +1,5 @@
+import React ,{ Fragment } from 'react'
+import {Button, Popconfirm} from 'antd'
 export default [
   {
     title: '姓名',
@@ -38,5 +40,22 @@ export default [
     title: '退房时间',
     dataIndex: 'ntime',
     key: 'ntime',
+  },
+  {
+    title:'操作',
+    render: (data)=>{
+      return (
+        <Fragment>
+          <Button type="primary" size='small'>修改</Button>
+          <Popconfirm title='确认要删除此条数据？'
+          onConfirm={()=>{
+            console.log(data._id)
+            // this.delData()
+          }}>
+            <Button type="danger" size='small'>删除</Button>
+          </Popconfirm>
+        </Fragment>
+      )
+    }
   }
 ]

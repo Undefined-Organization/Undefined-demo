@@ -97,7 +97,7 @@ router.get('/get', (req, res) => {
   let pageSize = Number(req.query.pageSize)||5
   person.get(page,pageSize)
   .then((data)=>{
-    res.send({err: 1, msg: '查询成功', info: {list: data}})
+    res.send({err: 0, msg: '查询成功', info: {list: data}})
   })
   .catch((err)=>{
     res.send({err: -1, msg: '查询失败', info: err})
