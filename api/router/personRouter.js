@@ -12,7 +12,7 @@ const person = require('../control/personControl')
  * @apiParam {String} pwd 员工登录密码 
  * @apiParam {String} sex 员工性别
  * @apiParam {String} idCard 员工身份证号 
- * @apiParam {Number} section 部门编号
+ * @apiParam {String} section 部门
  * @apiParam {Number} tel 手机号
  * @apiParam {Date} ctime 创建时间 
  *
@@ -54,7 +54,7 @@ router.get('/del', (req, res) => {
 })
 
 /**
- * @api {get} /admin/person/update 员工息修改
+ * @api {get} /admin/person/update 员工信息修改
  * @apiName update
  * @apiGroup person
  *
@@ -70,8 +70,8 @@ router.get('/del', (req, res) => {
  * @apiSuccess {String} info  返回信息.
  */
 router.get('/update', (req, res) => {
-  let {_id,pwd, idCard, sex, section, tel} = req.query
-  person.update(_id, pwd, idCard, sex, section, tel)
+  let {_id,name, account, pwd, idCard, sex, section, tel} = req.query
+  person.update(_id, name, account, pwd, idCard, sex, section, tel)
   .then((data)=>{
     res.send({err: 0, msg: '修改成功', info: data})
   })
@@ -104,4 +104,29 @@ router.get('/get', (req, res) => {
   })
 })
 
+/**
+ * @api {get} /admin/person/getByKw 关键词员工信息获取
+ * @apiName getByKw
+ * @apiGroup person
+ *
+ * @apiParam {Number} page 当前页数
+ * @apiParam {Number} pageSize 每页数据数量
+ * @apiParam {Number} kw 关键词
+ * 
+ * @apiSuccess {String} err 状态码
+ * @apiSuccess {String} msg  是否成功信息.
+ * @apiSuccess {String} info  返回信息.
+ */
+router.get('/getByKw', (req, res) => {
+  let page = Number(req.query.page)||1
+  let pageSize = Number(req.query.pageSize)||5
+  let {kw} = req.query
+  person.getByKw(page,pageSize,kw)
+  .then((data)=>{
+    res.send({err: 0, msg: '查询成功', info: {list: data}})
+  })
+  .catch((err)=>{
+    res.send({err: -1, msg: '查询失败', info: err})
+  })
+})
 module.exports = router

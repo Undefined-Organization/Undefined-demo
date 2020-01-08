@@ -17,8 +17,21 @@ async function get(page,pageSize){
   let res = await model.find().skip((page-1)*pageSize).limit(pageSize)
   return {res,allCount}
 }
-async function out(_id){
-  let res = await model.updateOne({_id: _id}, {state: 1})
+async function getByKw(page,pageSize,kw){
+  let regex=new RegExp(kw)
+  let all = await model.find({name:{$regex:regex}})
+  let allCount = all.length
+  let res = await model.find({name:{$regex:regex}}).skip((page-1)*pageSize).limit(pageSize)
+  return {res,allCount}
+}
+async function out(_id, ntime){
+  let res = await model.updateOne({_id: _id}, {state: 1,ntime})
   return res
 }
-module.exports = {add, del, update, get, out}
+async function getByType(page,pageSize,type){
+  let all = await model.find(type==2?{}:{state:type})
+  let res = await model.find(type==2?{}:{state:type}).skip((page-1)*pageSize).limit(pageSize)
+  let allCount = all.length
+  return {res,allCount}
+}
+module.exports = {add, del, update, get, out, getByType,getByKw}

@@ -32,7 +32,7 @@ export default [
   {
     name: '房间管理',
     icon: 'shop',
-    path: '/admin/room',
+    path: '',
     rootid: '4'
   },
   {
