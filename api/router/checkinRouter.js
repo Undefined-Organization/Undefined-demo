@@ -105,6 +105,56 @@ router.get('/get', (req, res) => {
     res.send({err: -1, msg: '查询失败', info: err})
   })
 })
+/**
+ * @api {get} /admin/checkin/getByType 分类客户入住信息获取
+ * @apiName getByType
+ * @apiGroup Checkin
+ *
+ * @apiParam {Number} page 当前页数
+ * @apiParam {Number} pageSize 每页数据数量
+ * @apiParam {Number} type 类别 2=全部 0=正在入住 1=已退房 
+ * 
+ * @apiSuccess {String} err 状态码
+ * @apiSuccess {String} msg  是否成功信息.
+ * @apiSuccess {String} info  返回信息.
+ */
+router.get('/getByType', (req, res) => {
+  let page = Number(req.query.page)||1
+  let pageSize = Number(req.query.pageSize)||5
+  let {type} = req.query
+  checkin.getByType(page,pageSize,type)
+  .then((data)=>{
+    res.send({err: 0, msg: '查询成功', info: {list: data}})
+  })
+  .catch((err)=>{
+    res.send({err: -1, msg: '查询失败', info: err})
+  })
+})
+/**
+ * @api {get} /admin/checkin/getByKw 关键词客户入住信息获取
+ * @apiName getByKw
+ * @apiGroup Checkin
+ *
+ * @apiParam {Number} page 当前页数
+ * @apiParam {Number} pageSize 每页数据数量
+ * @apiParam {Number} kw 关键词
+ * 
+ * @apiSuccess {String} err 状态码
+ * @apiSuccess {String} msg  是否成功信息.
+ * @apiSuccess {String} info  返回信息.
+ */
+router.get('/getByKw', (req, res) => {
+  let page = Number(req.query.page)||1
+  let pageSize = Number(req.query.pageSize)||5
+  let {kw} = req.query
+  checkin.getByKw(page,pageSize,kw)
+  .then((data)=>{
+    res.send({err: 0, msg: '查询成功', info: {list: data}})
+  })
+  .catch((err)=>{
+    res.send({err: -1, msg: '查询失败', info: err})
+  })
+})
 
 /**
  * @api {get} /admin/checkin/out 客户退房
@@ -119,7 +169,8 @@ router.get('/get', (req, res) => {
  */
 router.get('/out', (req, res) => {
   let { _id } = req.query
-  checkin.out(_id)
+  let ntime = Date.now()
+  checkin.out(_id,ntime)
   .then((data)=>{
     res.send({err: 0, msg: '退房成功', info: data})
   })

@@ -6,8 +6,8 @@ let checkinSchema = new Schema({
   account: { type: String, default: null },
   pwd: { type: String, default: null },
   sex: { type: String, default: null },
-  idCard: { type: Number, default: null },
-  section: { type: Number, default: null },
+  idCard: { type: String, default: null },
+  section: { type: String, default: null },
   tel: { type: Number, default: null },
   ctime: { type: Date, default: Date.now },
 })

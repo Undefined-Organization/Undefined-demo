@@ -1,7 +1,9 @@
 import React, { Component, Fragment} from 'react';
-import { Table, Pagination, Button, Popconfirm,Tag,Drawer,message} from 'antd'
-import { getCheckinList,delCheckinList,outCheckinList } from '../../api/checkin'
+import { Table, Pagination, Button, Popconfirm, Tag, Drawer, message, Radio, Input} from 'antd'
+import { getCheckinList,delCheckinList,outCheckinList, getListByKw } from '../../api/checkin'
 import Update from './Update/Update'
+
+const { Search } = Input;
 
 class In extends Component {
   constructor(){
@@ -11,44 +13,57 @@ class In extends Component {
         title: '姓名',
         dataIndex: 'name',
         key: 'name',
+        width:100,
+        fixed:'left'
       },
       {
         title: '身份证号',
         dataIndex: 'idCard',
         key: 'idCard',
+        width:200
       },
       {
         title: '性别',
         dataIndex: 'sex',
         key: 'sex',
+        width:70
       },
       {
         title: '收款金额',
         dataIndex: 'price',
         key: 'price',
+        width:100
       },
       {
         title: '房间号',
         dataIndex: 'roomNum',
         key: 'roomNum',
+        width:80
       },
       {
         title: '电话号',
         dataIndex: 'tel',
         key: 'tel',
+        width:150
       },
       {
         title: '入住时间',
         dataIndex: 'ctime',
         key: 'ctime',
+        ellipsis: true,
+        width:150
       },
       {
         title: '退房时间',
         dataIndex: 'ntime',
         key: 'ntime',
+        ellipsis: true,
+        width:150
       },
       {
         title:'操作',
+        fixed:'right',
+        width:200,
         render: (data)=>{
           return (
             <Fragment>
@@ -76,7 +91,8 @@ class In extends Component {
       allCount:0,
       pageSize:5,
       drawerShow:false,
-      updateInfo:{}
+      updateInfo:{},
+      stateValue:2
     }
   }
   componentDidMount(){
@@ -86,34 +102,58 @@ class In extends Component {
     delCheckinList(_id)
     .then(()=>{
       message.success('删除成功')
-      this.getList(this.state.pageNow)
+      this.getList(this.state.pageNow,this.state.stateValue)
     })
   }
   checkout(_id){
     outCheckinList(_id)
     .then(()=>{
       message.success('退房成功')
-      this.getList(this.state.pageNow)
+      this.getList(this.state.pageNow,this.state.stateValue)
     })
   }
-  getList(page=1){
+  getList(page=1,type=2){
     let {pageSize}=this.state
-    getCheckinList(page,pageSize)
+    getCheckinList(page,pageSize,type)
     .then((data) => {
-      this.setState({dataSource:data.info.list.res, allCount:data.info.list.allCount})     
+      this.setState({dataSource:data.info.list.res, allCount:data.info.list.allCount})
+    })
+  }
+  search(page=1,kw){
+    let {pageSize}=this.state
+    getListByKw(page,pageSize,kw)
+    .then((data)=>{
+      message.success('查询成功')
+      this.setState({dataSource:data.info.list.res, allCount:data.info.list.allCount})
     })
   }
   render() {
-    let { dataSource,allCount,pageSize,drawerShow,updateInfo,pageNow} = this.state
-    console.log(pageNow)
+    let { dataSource,allCount,pageSize,drawerShow,updateInfo,pageNow,stateValue} = this.state
     return (
       <div>
+        <p>
+        <Search
+          placeholder="请输入查询的姓名"
+          onSearch={(value) => {
+            this.search(1,value)
+          }}
+          style={{ width: 200 }}
+        />
+        </p>
+        <Radio.Group  value={stateValue} onChange={(e)=>{
+          this.getList(1,e.target.value)
+          this.setState({stateValue:e.target.value})
+        }}>
+          <Radio.Button value={2}>全部</Radio.Button>
+          <Radio.Button value={0}>正在入住</Radio.Button>
+          <Radio.Button value={1}>已退房</Radio.Button>
+        </Radio.Group>
         <Table columns={this.columns} dataSource={dataSource}
-        pagination={false} rowKey='_id'
+        pagination={false} rowKey='_id' scroll={{x:500,y:500}}
         ></Table>
         <Pagination defaultCurrent={pageNow} total={allCount} pageSize={pageSize}
         onChange={(page)=>{
-          this.getList(page)
+          this.getList(page,stateValue)
           this.setState({pageNow:page})
         }} />
         <Drawer
@@ -126,7 +166,7 @@ class In extends Component {
           <Update updateInfo={updateInfo}
           refreshList={()=>{
             this.setState({drawerShow:false})
-            this.getList(this.state.pageNow)
+            this.getList(this.state.pageNow,this.state.stateValue)
           }}></Update>
         </Drawer>
       </div>
