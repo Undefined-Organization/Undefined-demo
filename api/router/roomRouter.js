@@ -3,7 +3,7 @@ const router = express.Router()
 const room = require('../control/roomControl')
 
 /**
- * @api {get} /admin/room/add 增加房间
+ * @api {post} /admin/room/add 增加房间
  * @apiName add
  * @apiGroup room
  *
@@ -19,8 +19,8 @@ const room = require('../control/roomControl')
  * @apiSuccess {String} msg  是否成功信息.
  * @apiSuccess {String} info  返回信息.
  */
-router.get('/add', (req, res)=>{
-  let {roomNum, type, price, area, desc, state} = req.query
+router.post('/add', (req, res)=>{
+  let {roomNum, type, price, area, desc, state} = req.body
   room.add(roomNum, type, price, area, desc, state)
   .then((data)=>{
     res.send({err: 0, msg: '添加成功'})
@@ -31,7 +31,7 @@ router.get('/add', (req, res)=>{
 })
 
 /**
- * @api {get} /admin/room/del 删除房间
+ * @api {post} /admin/room/del 删除房间
  * @apiName del
  * @apiGroup room
  *
@@ -41,8 +41,8 @@ router.get('/add', (req, res)=>{
  * @apiSuccess {String} msg  是否成功信息.
  * @apiSuccess {String} info  返回信息.
  */
-router.get('/del', (req, res) => {
-  let {_id} = req.query
+router.post('/del', (req, res) => {
+  let {_id} = req.body
   room.del(_id)
   .then((data)=>{
     res.send({err: 0, msg: '删除成功', info: data})
@@ -53,7 +53,7 @@ router.get('/del', (req, res) => {
 })
 
 /**
- * @api {get} /admin/room/update 房间信息修改
+ * @api {post} /admin/room/update 房间信息修改
  * @apiName update
  * @apiGroup room
  *
@@ -66,8 +66,8 @@ router.get('/del', (req, res) => {
  * @apiSuccess {String} msg  是否成功信息.
  * @apiSuccess {String} info  返回信息.
  */
-router.get('/update', (req, res) => {
-  let {_id, type, price, desc} = req.query
+router.post('/update', (req, res) => {
+  let {_id, type, price, desc} = req.body
   room.update(_id, type, price, desc)
   .then((data)=>{
     res.send({err: 0, msg: '修改成功', info: data})
@@ -78,7 +78,7 @@ router.get('/update', (req, res) => {
 })
 
 /**
- * @api {get} /admin/room/get 房间信息获取
+ * @api {post} /admin/room/get 房间信息获取
  * @apiName get
  * @apiGroup room
  *
@@ -89,9 +89,9 @@ router.get('/update', (req, res) => {
  * @apiSuccess {String} msg  是否成功信息.
  * @apiSuccess {String} info  返回信息.
  */
-router.get('/get', (req, res) => {
-  let page = Number(req.query.page)||1
-  let pageSize = Number(req.query.pageSize)||5
+router.post('/get', (req, res) => {
+  let page = Number(req.body.page)||1
+  let pageSize = Number(req.body.pageSize)||5
   room.get(page,pageSize)
   .then((data)=>{
     res.send({err: 0, msg: '查询成功', info: {list: data}})
