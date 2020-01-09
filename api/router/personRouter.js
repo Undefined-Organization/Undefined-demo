@@ -21,7 +21,7 @@ const person = require('../control/personControl')
  * @apiSuccess {String} info  返回信息.
  */
 router.post('/add', (req, res)=>{
-  let {name, account, pwd, idCard, sex, section, tel} = req.body
+  let {name, account, pwd, idCard, sex, section, tel} = req.body.data
   person.add(name, account, pwd, idCard, sex, section, tel)
   .then((data)=>{
     res.send({err: 0, msg: '添加成功'})
@@ -43,7 +43,7 @@ router.post('/add', (req, res)=>{
  * @apiSuccess {String} info  返回信息.
  */
 router.post('/del', (req, res) => {
-  let {_id} = req.body
+  let {_id} = req.body.data
   person.del(_id)
   .then((data)=>{
     res.send({err: 0, msg: '删除成功', info: data})
@@ -70,7 +70,7 @@ router.post('/del', (req, res) => {
  * @apiSuccess {String} info  返回信息.
  */
 router.post('/update', (req, res) => {
-  let {_id,name, account, pwd, idCard, sex, section, tel} = req.body
+  let {_id,name, account, pwd, idCard, sex, section, tel} = req.body.data
   person.update(_id, name, account, pwd, idCard, sex, section, tel)
   .then((data)=>{
     res.send({err: 0, msg: '修改成功', info: data})
@@ -93,8 +93,8 @@ router.post('/update', (req, res) => {
  * @apiSuccess {String} info  返回信息.
  */
 router.post('/get', (req, res) => {
-  let page = Number(req.post.page)||1
-  let pageSize = Number(req.post.pageSize)||5
+  let page = Number(req.body.data.page)||1
+  let pageSize = Number(req.body.data.pageSize)||5
   person.get(page,pageSize)
   .then((data)=>{
     res.send({err: 0, msg: '查询成功', info: {list: data}})
@@ -118,9 +118,9 @@ router.post('/get', (req, res) => {
  * @apiSuccess {String} info  返回信息.
  */
 router.post('/getByKw', (req, res) => {
-  let page = Number(req.body.page)||1
-  let pageSize = Number(req.body.pageSize)||5
-  let {kw} = req.body
+  let page = Number(req.body.data.page)||1
+  let pageSize = Number(req.body.data.pageSize)||5
+  let {kw} = req.body.data
   person.getByKw(page,pageSize,kw)
   .then((data)=>{
     res.send({err: 0, msg: '查询成功', info: {list: data}})

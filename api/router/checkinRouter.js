@@ -22,7 +22,7 @@ const checkin = require('../control/checkinControl')
  * @apiSuccess {String} info  返回信息.
  */
 router.post('/in', (req, res)=>{
-  let {name, idCard, sex, price, roomNum, tel} = req.body
+  let {name, idCard, sex, price, roomNum, tel} = req.body.data
   checkin.add(name, idCard, sex, price, roomNum, tel)
   .then((data)=>{
     res.send({err: 0, msg: '添加成功'})    
@@ -44,7 +44,7 @@ router.post('/in', (req, res)=>{
  * @apiSuccess {String} info  返回信息.
  */
 router.post('/del', (req, res) => {
-  let {_id} = req.body
+  let {_id} = req.body.data
   checkin.del(_id)
   .then((data)=>{
     res.send({err: 0, msg: '删除成功', info: data})
@@ -72,7 +72,7 @@ router.post('/del', (req, res) => {
  * @apiSuccess {String} info  返回信息.
  */
 router.post('/update', (req, res) => {
-  let {_id, sex, price, roomNum, tel} = req.body
+  let {_id, sex, price, roomNum, tel} = req.body.data
   checkin.update(_id, sex, price, roomNum, tel)
   .then((data)=>{
     res.send({err: 0, msg: '修改成功', info: data})
@@ -95,8 +95,8 @@ router.post('/update', (req, res) => {
  * @apiSuccess {String} info  返回信息.
  */
 router.post('/get', (req, res) => {
-  let page = Number(req.body.page)||1
-  let pageSize = Number(req.body.pageSize)||5
+  let page = Number(req.body.data.page)||1
+  let pageSize = Number(req.body.data.pageSize)||5
   checkin.get(page,pageSize)
   .then((data)=>{
     res.send({err: 0, msg: '查询成功', info: {list: data}})
@@ -119,9 +119,9 @@ router.post('/get', (req, res) => {
  * @apiSuccess {String} info  返回信息.
  */
 router.post('/getByType', (req, res) => {
-  let page = Number(req.body.page)||1
-  let pageSize = Number(req.body.pageSize)||5
-  let {type} = req.body
+  let page = Number(req.body.data.page)||1
+  let pageSize = Number(req.body.data.pageSize)||5
+  let {type} = req.body.data
   checkin.getByType(page,pageSize,type)
   .then((data)=>{
     res.send({err: 0, msg: '查询成功', info: {list: data}})
@@ -144,9 +144,9 @@ router.post('/getByType', (req, res) => {
  * @apiSuccess {String} info  返回信息.
  */
 router.post('/getByKw', (req, res) => {
-  let page = Number(req.body.page)||1
-  let pageSize = Number(req.body.pageSize)||5
-  let {kw} = req.body
+  let page = Number(req.body.data.page)||1
+  let pageSize = Number(req.body.data.pageSize)||5
+  let {kw} = req.body.data
   checkin.getByKw(page,pageSize,kw)
   .then((data)=>{
     res.send({err: 0, msg: '查询成功', info: {list: data}})
@@ -168,7 +168,7 @@ router.post('/getByKw', (req, res) => {
  * @apiSuccess {String} info  返回信息.
  */
 router.post('/out', (req, res) => {
-  let { _id } = req.body
+  let { _id } = req.body.data
   let ntime = Date.now()
   checkin.out(_id,ntime)
   .then((data)=>{
