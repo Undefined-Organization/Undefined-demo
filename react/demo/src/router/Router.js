@@ -8,6 +8,8 @@ import Login from '../pages/Login/Login'
 import Personnel from '../pages/Personnerl/personnel'
 import Addlist from '../pages/Add/Addlist'
 
+import Room from '../pages/Room/Room'
+import Roomadd from '../pages/Roomadd/Roomadd'
 class Router extends Component {
   render() {
     return (
@@ -25,6 +27,8 @@ class Router extends Component {
                   <Route path='/admin/checkin' component={ Checkin }></Route>
                   <Route path='/admin/staff/Personnel' component={ Personnel }></Route>
                   <Route path='/admin/staff/Addlist' component={ Addlist }></Route>
+                  <Route path='/admin/room' component={ Room }></Route>
+                  <Route path='/admin/roomadd' component={ Roomadd }></Route>
                 </Switch> 
               </Admin>  
               

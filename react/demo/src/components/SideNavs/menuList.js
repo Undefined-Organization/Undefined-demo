@@ -45,7 +45,19 @@ export default [
     name: '房间管理',
     icon: 'shop',
     path: '',
-    rootid: '4'
+    rootid: '4',
+    children: [
+      {
+        name: '房间信息',
+        path: '/admin/room',
+        rootid: '4-1'
+      },
+      {
+        name: '添加房间',
+        path: '/admin/roomadd',
+        rootid: '4-2'
+      }
+    ]
   },
   {
     name: '会员管理',
