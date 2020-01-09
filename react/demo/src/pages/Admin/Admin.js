@@ -1,13 +1,27 @@
 import React, { Component } from 'react';
 import SideNav from '../../components/SideNavs/SideNavs'
 // import {withRouter} from 'react-router-dom'
-import { Layout } from 'antd';
+import { Layout ,Dropdown} from 'antd';
 import Style from './admin.module.less'
+import {getItem} from '../../utils/webStorage'
+import HeaderNav from '../../components/HeaderNav/HeaderNav'
 const { Header, Sider, Content, Footer } = Layout;
 
 
 class Admin extends Component {
+  constructor(){
+    super()
+    this.state = {
+      uid:''
+    }
+  }
+  componentDidMount(){
+   this.setState({uid: getItem('uid')})
+  //  console.log(getItem('uid'))
+  }
   render() {
+    // console.log(this)
+    let {uid}= this.state
     return (
       <Layout className={Style.admin}>
         <Sider>
@@ -15,6 +29,7 @@ class Admin extends Component {
         </Sider>
         <Layout>
           <Header style={{ background: '#fff', padding: 0 }}>
+          <HeaderNav ></HeaderNav>
           </Header>
           <Content
             style={{

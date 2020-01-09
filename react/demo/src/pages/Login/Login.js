@@ -6,14 +6,14 @@ import { Card, Form, Input, Icon, Checkbox, Button, message } from 'antd'
 
 class Login extends Component {
     login = () => {
-        let { getFieldValue, validateFields } = this.props.form
+        let {  validateFields } = this.props.form
         validateFields((err, data) => {
             // console.log(err, data)
             if (err) return message.error('输入有误请重试')
             let { username, password } = data
             UserLogin(username, password)
                 .then((res) => {
-                    console.log(1111)
+                    // console.log(1111)
                     console.log('then', res)
                     setItem('token', res.token)
                     setItem('uid', res.uid)

@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
+import { getItem } from '../../utils/webStorage';
+import { withRouter } from "react-router-dom";
 
 class Home extends Component {
+  componentDidMount() {
+    if (!getItem('token')) 
+    { this.props.history.replace('/login') }
+  }
   render() {
     return (
       <div>
@@ -10,4 +16,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default withRouter(Home);
