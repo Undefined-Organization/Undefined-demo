@@ -1,6 +1,6 @@
 const express = require('express')
 const router =express.Router()
-const jwt = require('../../utils/jwt')
+const jwt = require('../utils/jwt')
 const adminModel = require('../db/model/personModel')
 router.post('/login',(req,res)=>{
   let {account,pwd} = req.body 
