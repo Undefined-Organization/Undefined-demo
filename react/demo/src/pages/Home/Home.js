@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-
+import Line from '../../components/echarts/line/line'
 class Home extends Component {
   render() {
     return (
       <div>
-        这里是首页
+        <Line></Line>
       </div>
     );
   }

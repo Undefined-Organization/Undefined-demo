@@ -6,10 +6,22 @@ export default [
     rootid: '0'
   },
   {
-    name: '员工管理',
+    name: '高级管理',
     icon: 'idcard',
     path: '/admin/staff',
     rootid: '1',
+    children:[
+      {
+        name:'员工管理',
+        rootid: '1-0',
+        path:'/admin/staff/personnel'
+      },
+      {
+        name:'添加员工',
+        rootid: '1-1',
+        path:'/admin/staff/Addlist'
+      },
+    ]
   },
   {
     name: '入住管理',

@@ -3,7 +3,7 @@ import { Menu, Icon } from 'antd';
 import menu from './menuList'
 import { Link } from 'react-router-dom'
 
-const { SubMenu } = Menu;
+const { SubMenu } = Menu; 
 
 class SideNavs extends Component {
   constructor () {
@@ -21,7 +21,7 @@ class SideNavs extends Component {
       if (item.children) {
         return (
           <SubMenu
-          key={'sub'+index}
+          key={item.rootid}
           title={
             <span>
               <Icon type={item.icon} />
@@ -34,10 +34,10 @@ class SideNavs extends Component {
         )
       } else {
         return (
-          <Menu.Item key={index}>
+          <Menu.Item key={item.rootid}>
             <Link to={item.path}>
             <span>
-              <Icon type={item.icon} />
+            <Icon type={item.icon||''}></Icon>
               <span>{item.name}</span>
             </span>
             </Link>
@@ -49,11 +49,11 @@ class SideNavs extends Component {
   }
   render() {
     let {menuList} = this.state
-    console.log(menuList)
+    // console.log(this)
     return (
       <Menu
         onClick={this.handleClick}
-        defaultSelectedKeys={['1']}
+        defaultSelectedKeys={['0']}
         defaultOpenKeys={['sub1']}
         mode="inline"
         theme="dark"
