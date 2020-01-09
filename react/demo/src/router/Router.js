@@ -6,7 +6,8 @@ import Home from '../pages/Home/Home'
 import In from '../pages/In/In'
 import Checkin from '../pages/Checkin/Checkin';
 import Login from '../pages/Login/Login'
-
+import Room from '../pages/Room/Room'
+import Roomadd from '../pages/Roomadd/Roomadd'
 class Router extends Component {
   render() {
     return (
@@ -22,6 +23,8 @@ class Router extends Component {
                   <Route path='/admin/home' component={ Home }></Route>
                   <Route path='/admin/in' component={ In }></Route>
                   <Route path='/admin/checkin' component={ Checkin }></Route>
+                  <Route path='/admin/room' component={ Room }></Route>
+                  <Route path='/admin/roomadd' component={ Roomadd }></Route>
                 </Switch> 
               </Admin>  
             )
