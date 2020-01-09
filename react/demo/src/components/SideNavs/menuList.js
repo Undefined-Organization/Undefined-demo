@@ -63,6 +63,20 @@ export default [
     name: '会员管理',
     icon: 'credit-card',
     path: '/admin/vip',
-    rootid: '5'
+    rootid: '5',
+    children: [
+      {
+        name: "会员列表",
+        icon: 'database',
+        path: "/admin/vip/list",
+        rootid: "5-0"
+      },
+      {
+        name: "会员添加",
+        icon: 'file-add',
+        path: "/admin/vip/add",
+        rootid: "5-1"
+      }
+    ]
   }
 ]

@@ -7,6 +7,8 @@ import Checkin from '../pages/Checkin/Checkin';
 import Login from '../pages/Login/Login'
 import Personnel from '../pages/Personnerl/personnel'
 import Addlist from '../pages/Add/Addlist'
+import VipList from '../pages/Vips/List/List'
+import VipAdd from '../pages/Vips/Add/add'
 
 import Room from '../pages/Room/Room'
 import Roomadd from '../pages/Roomadd/Roomadd'
@@ -16,7 +18,7 @@ class Router extends Component {
       <HashRouter>
         <Switch>
           <Redirect exact from='/' to='/admin'></Redirect>
-          {/* <Route path='/login' component></Route> */}
+          <Route path='/login' component={Login}></Route>
           <Route path='/admin' render={()=>{
             return (
               <Admin>
@@ -29,6 +31,8 @@ class Router extends Component {
                   <Route path='/admin/staff/Addlist' component={ Addlist }></Route>
                   <Route path='/admin/room' component={ Room }></Route>
                   <Route path='/admin/roomadd' component={ Roomadd }></Route>
+                  <Route path='/admin/vip/list' component={VipList}></Route>
+                  <Route path='/admin/vip/add' component={VipAdd}></Route>
                 </Switch> 
               </Admin>  
               
