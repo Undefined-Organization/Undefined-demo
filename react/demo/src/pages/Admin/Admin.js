@@ -3,7 +3,7 @@ import SideNav from '../../components/SideNavs/SideNavs'
 import {withRouter} from 'react-router-dom'
 import { Layout } from 'antd';
 import Style from './admin.module.less'
-const { Header, Sider, Content, Footer } = Layout;
+const { Header, Sider, Content } = Layout;
 
 
 class Admin extends Component {
@@ -15,6 +15,7 @@ class Admin extends Component {
         </Sider>
         <Layout>
           <Header style={{ background: '#fff', padding: 0 }}>
+            <span>BiuBiuBiu酒店</span>
           </Header>
           <Content
             style={{
@@ -26,9 +27,9 @@ class Admin extends Component {
           >
             {this.props.children}
           </Content>
-          <Footer>
+          {/* <Footer>
             Footer
-          </Footer>
+          </Footer> */}
         </Layout>
       </Layout>
     );

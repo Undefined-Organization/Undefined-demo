@@ -3,7 +3,7 @@ import { Menu, Icon } from 'antd';
 import menu from './menuList'
 import { Link, withRouter } from 'react-router-dom'
 
-const { SubMenu } = Menu;
+const { SubMenu } = Menu; 
 
 class SideNavs extends Component {
   constructor () {
@@ -52,7 +52,7 @@ class SideNavs extends Component {
     return (
       <Menu
         onClick={this.handleClick}
-        defaultSelectedKeys={['1']}
+        defaultSelectedKeys={['0']}
         defaultOpenKeys={['sub1']}
         mode="inline"
         theme="dark"
