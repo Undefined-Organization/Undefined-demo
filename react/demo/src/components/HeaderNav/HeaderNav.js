@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Dropdown,Menu,Icon, message,notification} from 'antd'
-import {clear} from  '../../utils/webStorage'
+import {getItem,clear} from '../../utils/webStorage'
+import {UserLogout} from '../../api/user'
 const menuData=[
   {path:'',name:'个人信息',icon:'user'},
   {path:'',name:'个人设置',icon:'user'},
@@ -16,6 +17,17 @@ const openNotificationWithIcon =(type,msg) => {
 };
 
 class HeaderNav extends Component{
+  constructor(){
+    super()
+    this.state = {
+      uid:'',
+      name:''
+    }
+  }
+  componentDidMount(){
+    this.setState({name: getItem('name')})
+   //  console.log(getItem('uid'))
+   }
 clickMenu=(e)=>{
  let {key}=e 
  console.log(key)
@@ -25,7 +37,16 @@ clickMenu=(e)=>{
     //调用接口
     //删除本地数据
     // 去不去登录页面随意 
-    
+    UserLogout()
+    .then((res)=>{
+      clear() 
+      openNotificationWithIcon('success','退出成功')
+      window.location.href="http://localhost:3000/#/login"
+    })
+    .catch((err)=>{
+  
+      openNotificationWithIcon('error','退出失败请重试')
+    })
      break;
  
    default:
@@ -49,10 +70,11 @@ renderMenu(menuData){
   )
 }
 render() {
+  let {name} =this.state
     return (
       <Dropdown overlay={this.renderMenu(menuData)} >
         <a className="ant-dropdown-link" href="#" style={{margin:'0 0 0 30px',display:'inline-block'}}>
-          韩梅梅 <Icon type="down" />
+          {name} <Icon type="down" />
         </a>
       </Dropdown>
     );

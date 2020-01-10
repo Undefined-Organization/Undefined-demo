@@ -1,4 +1,5 @@
 import axios from '../utils/axios'
+import {getItem} from '../utils/webStorage'
 ////获取接口
 export const UserList = (page, pageSize) => {
     return new Promise((resolve, reject) => {
@@ -108,3 +109,15 @@ export const UserLogin=(userName,passWord)=>{
         })
     })
 }
+// 登出
+
+export const UserLogout = async ()=>{
+    let url='http://39.98.110.188:3000/admin/user/logout' 
+    let uid=getItem('uid')||''
+    let result = await axios.post(url,{uid})
+    if(result.err==0){
+      return result
+    }else{
+      throw result
+    }
+  } 

@@ -9,6 +9,10 @@ class vipUpdate extends Component {
     }
     componentDidMount() {
     }
+    componentWillReceiveProps(props){
+        console.log('props改变',props)
+        this.setState({...props.UpdataInfo})
+    }
     submit = () => {
         let {_id, name, img, vipType, desc } = this.state
         if (!this.state.img) return message.info('请先上传图片')

@@ -12,13 +12,15 @@ class Admin extends Component {
   constructor(){
     super()
     this.state = {
-      uid:''
+      uid:'',
+      name:''
     }
   }
   componentDidMount(){
-   this.setState({uid: getItem('uid')})
+   this.setState({uid: getItem('name')})
   //  console.log(getItem('uid'))
   }
+  
   render() {
     // console.log(this)
     let {uid}= this.state

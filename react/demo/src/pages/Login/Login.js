@@ -17,6 +17,7 @@ class Login extends Component {
                     console.log('then', res)
                     setItem('token', res.token)
                     setItem('uid', res.uid)
+                    setItem('name', res.name)
                     setItem('rootIds', res.rootList)
                     message.success('登陆成功，1s后自动跳转',1,()=>{
                         this.props.history.replace('./admin/home')
