@@ -5,7 +5,7 @@ export const UserList = (page, pageSize) => {
     return new Promise((resolve, reject) => {
         let url = 'http://39.98.110.188:3000/admin/person/get'
         let data= {page, pageSize}
-        axios.get(url, {params: data})
+        axios.post(url, {data})
             .then((res) => {
                 // console.log(res)
                 if (res.err === 0) {
@@ -25,7 +25,7 @@ export const DelList = (_id) => {
     return new Promise((resolve, reject) => {
         let url = 'http://39.98.110.188:3000/admin/person/del'
         let data= {_id}
-        axios.get(url, {params: data})
+        axios.post(url, {data})
             .then((res) => {
                 // console.log(res)
                 if (res.err === 0) {
@@ -45,7 +45,7 @@ export const AddList = (name,account,pwd,sex,idCard,section,tel) => {
     return new Promise((resolve, reject) => {
         let url = 'http://39.98.110.188:3000/admin/person/add'
         let data= {name,account,pwd,sex,idCard,section,tel}
-        axios.get(url, {params:{name,account,pwd,sex,idCard,section,tel}})
+        axios.post(url, {name,account,pwd,sex,idCard,section,tel})
             .then((res) => {
                 console.log(res)
                 if (res.err === 0) {
@@ -62,7 +62,7 @@ export const AddList = (name,account,pwd,sex,idCard,section,tel) => {
 export const UpdataList = (data) => {
     return new Promise((resolve, reject) => {
         let url = 'http://39.98.110.188:3000/admin/person/update'
-        axios.get(url, {params:data})
+        axios.post(url, {data})
             .then((res) => {
                 console.log(res)
                 if (res.err === 0) {
@@ -80,7 +80,7 @@ export const SearchList = (page, pageSize,kw) => {
     return new Promise((resolve, reject) => {
         let url = 'http://39.98.110.188:3000/admin/person/getByKw'
         let data= {page, pageSize,kw}
-        axios.get(url, {params: data})
+        axios.post(url, {data})
             .then((res) => {
                 // console.log(res)
                 if (res.err === 0) {

@@ -1,7 +1,7 @@
 // router
 const express = require('express')
 const router = express.Router()
-const userRouter = require('./userRouter')
+const userRouter = require('./adminUserRouter')
 const checkinRouter = require('./checkinRouter')
 const personRouter = require('./personRouter')
 const roomRouter = require('./roomRouter')

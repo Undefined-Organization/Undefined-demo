@@ -3,7 +3,7 @@ const router = express.Router()
 const person = require('../control/personControl')
 
 /**
- * @api {get} /admin/person/add 增加员工
+ * @api {post} /admin/person/add 增加员工
  * @apiName in
  * @apiGroup person
  *
@@ -20,8 +20,8 @@ const person = require('../control/personControl')
  * @apiSuccess {String} msg  是否成功信息.
  * @apiSuccess {String} info  返回信息.
  */
-router.get('/add', (req, res)=>{
-  let {name, account, pwd, idCard, sex, section, tel} = req.query
+router.post('/add', (req, res)=>{
+  let {name, account, pwd, idCard, sex, section, tel} = req.body.data
   person.add(name, account, pwd, idCard, sex, section, tel)
   .then((data)=>{
     res.send({err: 0, msg: '添加成功'})
@@ -32,7 +32,7 @@ router.get('/add', (req, res)=>{
 })
 
 /**
- * @api {get} /admin/person/del 删除员工
+ * @api {post} /admin/person/del 删除员工
  * @apiName del
  * @apiGroup person
  *
@@ -42,8 +42,8 @@ router.get('/add', (req, res)=>{
  * @apiSuccess {String} msg  是否成功信息.
  * @apiSuccess {String} info  返回信息.
  */
-router.get('/del', (req, res) => {
-  let {_id} = req.query
+router.post('/del', (req, res) => {
+  let {_id} = req.body.data
   person.del(_id)
   .then((data)=>{
     res.send({err: 0, msg: '删除成功', info: data})
@@ -54,7 +54,7 @@ router.get('/del', (req, res) => {
 })
 
 /**
- * @api {get} /admin/person/update 员工信息修改
+ * @api {post} /admin/person/update 员工信息修改
  * @apiName update
  * @apiGroup person
  *
@@ -69,8 +69,8 @@ router.get('/del', (req, res) => {
  * @apiSuccess {String} msg  是否成功信息.
  * @apiSuccess {String} info  返回信息.
  */
-router.get('/update', (req, res) => {
-  let {_id,name, account, pwd, idCard, sex, section, tel} = req.query
+router.post('/update', (req, res) => {
+  let {_id,name, account, pwd, idCard, sex, section, tel} = req.body.data
   person.update(_id, name, account, pwd, idCard, sex, section, tel)
   .then((data)=>{
     res.send({err: 0, msg: '修改成功', info: data})
@@ -81,7 +81,7 @@ router.get('/update', (req, res) => {
 })
 
 /**
- * @api {get} /admin/person/get 员工信息获取
+ * @api {post} /admin/person/get 员工信息获取
  * @apiName get
  * @apiGroup person
  *
@@ -92,9 +92,9 @@ router.get('/update', (req, res) => {
  * @apiSuccess {String} msg  是否成功信息.
  * @apiSuccess {String} info  返回信息.
  */
-router.get('/get', (req, res) => {
-  let page = Number(req.query.page)||1
-  let pageSize = Number(req.query.pageSize)||5
+router.post('/get', (req, res) => {
+  let page = Number(req.body.data.page)||1
+  let pageSize = Number(req.body.data.pageSize)||5
   person.get(page,pageSize)
   .then((data)=>{
     res.send({err: 0, msg: '查询成功', info: {list: data}})
@@ -105,7 +105,7 @@ router.get('/get', (req, res) => {
 })
 
 /**
- * @api {get} /admin/person/getByKw 关键词员工信息获取
+ * @api {post} /admin/person/getByKw 关键词员工信息获取
  * @apiName getByKw
  * @apiGroup person
  *
@@ -117,10 +117,10 @@ router.get('/get', (req, res) => {
  * @apiSuccess {String} msg  是否成功信息.
  * @apiSuccess {String} info  返回信息.
  */
-router.get('/getByKw', (req, res) => {
-  let page = Number(req.query.page)||1
-  let pageSize = Number(req.query.pageSize)||5
-  let {kw} = req.query
+router.post('/getByKw', (req, res) => {
+  let page = Number(req.body.data.page)||1
+  let pageSize = Number(req.body.data.pageSize)||5
+  let {kw} = req.body.data
   person.getByKw(page,pageSize,kw)
   .then((data)=>{
     res.send({err: 0, msg: '查询成功', info: {list: data}})
