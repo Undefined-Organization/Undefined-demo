@@ -28,21 +28,25 @@ class Checkin extends Component {
     let {name, idCard, sex, price, roomNum, tel} = this.state
     return (
       <div>
+        <h3 className={style.title}>登记入住</h3>
         <div className={style.iptList}>
           <Input
           addonBefore='姓名'
           value={name}
           onChange={(e)=>{
             this.setState({name:e.target.value})
-          }}></Input>
+          }}
+          className={style.ipt}></Input>
           <Input
           addonBefore='身份证号'
           value={idCard}
+          className={style.ipt}
           onChange={(e)=>{
             this.setState({idCard:e.target.value})
           }}></Input>
           <div>
             <Radio.Group defaultValue="a" buttonStyle="solid"
+            className={style.ipt}
             onChange={(e)=>{
               this.setState({sex:e.target.value})
             }}>
@@ -53,18 +57,21 @@ class Checkin extends Component {
           <Input
           addonBefore='收款金额'
           value={price}
+          className={style.ipt}
           onChange={(e)=>{
             this.setState({price:e.target.value})
           }}></Input>
           <Input
           addonBefore='房间号'
           value={roomNum}
+          className={style.ipt}
           onChange={(e)=>{
             this.setState({roomNum:e.target.value})
           }}></Input>
           <Input
           addonBefore='电话号'
           value={tel}
+          className={style.ipt}
           onChange={(e)=>{
             this.setState({tel:e.target.value})
           }}></Input>
