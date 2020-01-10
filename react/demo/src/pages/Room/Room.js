@@ -70,23 +70,25 @@ class Room extends Component{
     }
     delData(id){
         // 网络请求
+        let {nowPage}=this.state
+        console.log(nowPage)
         DelData(id)
         .then(()=>{
             message.success('删除ok',1)
-            this.getTableData()
+            this.getTableData(nowPage)
         })
     }
-    getTableData(nowPage=1){
+    getTableData(page=1){
         // 根据页数获取网络数据
         this.setState({spinning:true})
-        GetRooms(nowPage,pageSize)
+        GetRooms(page,pageSize)
         .then((res)=>{
             console.log(res)
             this.setState({dataSource:res.info.list.res,allCount:res.info.list.allCount,spinning:false})
         })
     }
     render(){
-        let {dataSource,spinning,allCount,drawerShow,updateInfo} = this.state
+        let {dataSource,spinning,allCount,drawerShow,updateInfo,nowPage} = this.state
         return(
             <div>
                 <Spin spinning={spinning}>
@@ -98,12 +100,14 @@ class Room extends Component{
                     ></Table>
                </Spin>
                <Pagination 
+                  defaultCurrent={nowPage}
                   simple
                   total={allCount}
                   pageSize={pageSize}
                   onChange={(page)=>{
                      console.log('目标页数',page)
                      this.getTableData(page)
+                     this.setState({nowPage:page})
                   }}
                />
                <Drawer
@@ -116,7 +120,7 @@ class Room extends Component{
                      refreshList={()=>{
                          this.setState({drawerShow:false})
                          // 更新完毕后刷新页面
-                         this.getTableData()
+                         this.getTableData(nowPage)
                      }}
                   ></UpdateRoom>
                </Drawer>
