@@ -45,7 +45,7 @@ export const AddList = (name,account,pwd,sex,idCard,section,tel) => {
     return new Promise((resolve, reject) => {
         let url = 'http://39.98.110.188:3000/admin/person/add'
         let data= {name,account,pwd,sex,idCard,section,tel}
-        axios.post(url, {name,account,pwd,sex,idCard,section,tel})
+        axios.post(url, {data})
             .then((res) => {
                 console.log(res)
                 if (res.err === 0) {
